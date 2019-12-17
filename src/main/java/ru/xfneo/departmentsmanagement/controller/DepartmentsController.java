@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,9 +42,10 @@ public class DepartmentsController {
         return departmentService.find(id);
     }
 
-    @ApiOperation(value = "Create department", response = Department.class)
-    @ApiResponse(code = 200, message = "Successfully created department")
+    @ApiOperation(value = "Create department", code = 201, response = Department.class)
+    @ApiResponse(code = 201, message = "Successfully created department")
     @PostMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseStatus(code = HttpStatus.CREATED)
     public ResponseEntity<?> createDepartment(@RequestBody Department department) {
         return departmentService.create(department);
     }
@@ -64,7 +66,7 @@ public class DepartmentsController {
 
     @ApiOperation(value = "Delete department and transfer all employee from this department to another department", response = String.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully deleted department"),
+            @ApiResponse(code = 200, message = "Successfully deleted department, returns information about how many employees have been transferred to new department"),
             @ApiResponse(code = 400, message = "Invalid \"departmentIdForReplacement\" parameter"),
             @ApiResponse(code = 404, message = "Department not found")
     })

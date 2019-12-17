@@ -95,7 +95,7 @@ public class DepartmentsControllerIT {
     public void testCreateDepartment() {
         Department expectedDepartment = new Department(4, "Accounting Department");
         ResponseEntity<Department> response = restTemplate.postForEntity(DEPARTMENTS_URI, expectedDepartment, Department.class);
-        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+        assertThat(response.getStatusCode(), is(HttpStatus.CREATED));
         assertThat(response.getBody().getId(), notNullValue());
         assertThat(response.getBody().getName(), is(expectedDepartment.getName()));
         Department actualDepartment = restTemplate.getForObject(DEPARTMENTS_ID_URI, Department.class, expectedDepartment.getId());

@@ -67,9 +67,9 @@ public class DepartmentServiceTest {
     }
 
     @Test
-    public void testCreate_OkResponse() {
+    public void testCreate_CreatedResponse() {
         when(departmentRepository.save(department1)).thenReturn(department1);
-        ResponseEntity<?> expectedResponse = ResponseEntity.ok(department1);
+        ResponseEntity<?> expectedResponse = ResponseEntity.status(201).body(department1);
         ResponseEntity<?> actualResponse = sut.create(department1);
         assertEquals(expectedResponse, actualResponse);
         verify(departmentRepository).save(department1);

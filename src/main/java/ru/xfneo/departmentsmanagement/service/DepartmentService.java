@@ -38,7 +38,7 @@ public class DepartmentService {
     }
 
     public ResponseEntity<?> create(Department department) {
-        return ResponseEntity.ok(departmentRepository.save(department));
+        return ResponseEntity.status(201).body(departmentRepository.save(department));
     }
 
     public ResponseEntity<?> update(Long originalDepartmentId, Department editedDepartment) {
