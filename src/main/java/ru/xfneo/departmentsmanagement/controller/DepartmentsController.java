@@ -64,7 +64,7 @@ public class DepartmentsController {
         return departmentService.update(originalDepartmentId, editedDepartment);
     }
 
-    @ApiOperation(value = "Delete department and transfer all employee from this department to another department", response = String.class)
+    @ApiOperation(value = "Delete department and transfer all employees from this department to another department", response = String.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully deleted department, returns information about how many employees have been transferred to new department"),
             @ApiResponse(code = 400, message = "Invalid \"departmentIdForReplacement\" parameter"),

@@ -64,7 +64,7 @@ public class DepartmentsControllerTest {
 
     @Test
     @SneakyThrows
-    public void testGetListOfDepartments() {
+    public void getListOfDepartments_GetAllDepartments_OkResponseWithTwoDepartments() {
         mockMvc.perform(get(GET_ALL_DEPARTMENTS_URI))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -78,7 +78,7 @@ public class DepartmentsControllerTest {
 
     @Test
     @SneakyThrows
-    public void testGetDepartment() {
+    public void getDepartment_GetDepartment_OkResponseWithDepartment() {
         mockMvc.perform(get(GET_PUT_DEPARTMENT_URI))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -90,7 +90,7 @@ public class DepartmentsControllerTest {
 
     @Test
     @SneakyThrows
-    public void testCreateDepartment() {
+    public void createDepartment_CreateDepartment_OkResponseWithCreatedDepartment() {
         mockMvc.perform(post(POST_DEPARTMENT_URI)
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                 .content(CREATE_DEPARTMENT1_JSON))
@@ -104,7 +104,7 @@ public class DepartmentsControllerTest {
 
     @Test
     @SneakyThrows
-    public void testUpdateDepartment() {
+    public void updateDepartment_UpdateDepartment_OkResponseWithUpdatedDepartment() {
         mockMvc.perform(put(GET_PUT_DEPARTMENT_URI)
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                 .content(UPDATE_DEPARTMENT1_JSON))
@@ -118,7 +118,7 @@ public class DepartmentsControllerTest {
 
     @Test
     @SneakyThrows
-    public void testDeleteDepartment() {
+    public void deleteDepartment_DeleteDepartment_OkResponse() {
         mockMvc.perform(delete(DELETE_DEPARTMENT_URI))
                 .andDo(print())
                 .andExpect(status().isOk());

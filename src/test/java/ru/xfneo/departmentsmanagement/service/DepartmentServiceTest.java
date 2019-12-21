@@ -41,7 +41,7 @@ public class DepartmentServiceTest {
     }
 
     @Test
-    public void testFindAll() {
+    public void findAll_GetAllDepartments_NotEmptyListOfDepartments() {
         List<Department> expectedList = Arrays.asList(department1, department2);
         when(departmentRepository.findAll()).thenReturn(expectedList);
         List<Department> actualList = sut.findAll();
@@ -51,7 +51,7 @@ public class DepartmentServiceTest {
     }
 
     @Test
-    public void testFind_OkResponse() {
+    public void find_GetDepartment_OkResponseWithDepartment() {
         when(departmentRepository.findById(department1.getId())).thenReturn(Optional.of(department1));
         ResponseEntity<?> expectedResponse = ResponseEntity.ok(department1);
         ResponseEntity<?> actualResponse = sut.find(department1.getId());
@@ -60,14 +60,14 @@ public class DepartmentServiceTest {
     }
 
     @Test
-    public void testFind_NotFoundResponse() {
+    public void find_GetNullDepartment_NotFoundResponse() {
         ResponseEntity<?> expectedNotFoundResponse = ResponseEntity.status(404).body("Department Not Found");
         ResponseEntity<?> actualFailResponse = sut.find(null);
         assertEquals(expectedNotFoundResponse, actualFailResponse);
     }
 
     @Test
-    public void testCreate_CreatedResponse() {
+    public void create_CreateDepartment_CreatedResponseWithDepartment() {
         when(departmentRepository.save(department1)).thenReturn(department1);
         ResponseEntity<?> expectedResponse = ResponseEntity.status(201).body(department1);
         ResponseEntity<?> actualResponse = sut.create(department1);
@@ -76,7 +76,7 @@ public class DepartmentServiceTest {
     }
 
     @Test
-    public void testUpdate_OkResponse() {
+    public void update_UpdateDepartment_OkResponseWithUpdatedDepartment() {
         when(departmentRepository.save(department1)).thenReturn(department1);
         when(departmentRepository.findById(department1.getId())).thenReturn(Optional.of(department1));
         ResponseEntity<?> expectedResponse = ResponseEntity.ok(department1);
@@ -89,7 +89,7 @@ public class DepartmentServiceTest {
     }
 
     @Test
-    public void testUpdate_NotFoundResponse() {
+    public void update_UpdateNonexistentDepartment_NotFoundResponse() {
         when(departmentRepository.findById(department1.getId())).thenReturn(Optional.empty());
         ResponseEntity<?> expectedResponse = ResponseEntity.status(404).body("Department Not Found");
         ResponseEntity<?> actualResponse = sut.update(department1.getId(), department2);
@@ -99,7 +99,7 @@ public class DepartmentServiceTest {
     }
 
     @Test
-    public void testDelete_OkResponse() {
+    public void delete_DeleteDepartment_OkResponseWithAffectedEmployees() {
         Request mockRequest = mock(Request.class);
         Response responseFromEmployeesService = Response.builder()
                 .status(200)
@@ -116,7 +116,7 @@ public class DepartmentServiceTest {
     }
 
     @Test
-    public void testDelete_NotFoundResponse() {
+    public void delete_DeleteNullDepartment_NotFoundResponse() {
         ResponseEntity<?> expectedResponse = ResponseEntity.status(404).body("Department Not Found");
         ResponseEntity<?> actualResponse = sut.delete(null, String.valueOf(department2.getId()));
         assertEquals(expectedResponse, actualResponse);
@@ -124,7 +124,7 @@ public class DepartmentServiceTest {
     }
 
     @Test
-    public void testDelete_WrongRequestParamResponse() {
+    public void delete_DeleteDepartmentWithWrongSwapDepartmentIdParam_BadRequestResponseWithWrongParam() {
         ResponseEntity<?> expectedResponse = ResponseEntity.status(400).body("Parameter departmentIdForReplacement must be a number");
         ResponseEntity<?> actualResponse = sut.delete(department1.getId(), "WrongParam");
         assertEquals(expectedResponse, actualResponse);

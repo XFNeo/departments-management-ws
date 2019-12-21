@@ -75,7 +75,7 @@ public class DepartmentsControllerIT {
     }
 
     @Test
-    public void testGetListOfDepartments() {
+    public void getListOfDepartmentsAndNotEmptyListOfDepartments() {
         ResponseEntity<List<Department>> response = restTemplate.exchange(DEPARTMENTS_URI, HttpMethod.GET, null,
                 new ParameterizedTypeReference<List<Department>>() {
                 });
@@ -85,14 +85,14 @@ public class DepartmentsControllerIT {
     }
 
     @Test
-    public void testGetDepartment() {
+    public void getDepartmentAndNotNullDepartment() {
         long id = department2.getId();
         Department actualDepartment = restTemplate.getForObject(DEPARTMENTS_ID_URI, Department.class, id);
         assertEquals(department2, actualDepartment);
     }
 
     @Test
-    public void testCreateDepartment() {
+    public void createDepartmentAndSavedDepartmentInRepository() {
         Department expectedDepartment = new Department(4, "Accounting Department");
         ResponseEntity<Department> response = restTemplate.postForEntity(DEPARTMENTS_URI, expectedDepartment, Department.class);
         assertThat(response.getStatusCode(), is(HttpStatus.CREATED));
@@ -103,7 +103,7 @@ public class DepartmentsControllerIT {
     }
 
     @Test
-    public void updateDepartment() {
+    public void updateDepartmentAndUpdatedDepartmentInRepository() {
         Department expectedDepartment = new Department(999, "Platform Development Department");
         HttpEntity<Department> entity = new HttpEntity<>(expectedDepartment);
         ResponseEntity<Department> response =
@@ -116,7 +116,7 @@ public class DepartmentsControllerIT {
     }
 
     @Test
-    public void deleteDepartment() {
+    public void deleteDepartmentAndDeletedDepartmentFromRepository() {
         Request mockRequest = mock(Request.class);
         Response responseFromEmployeesService = Response.builder()
                 .status(200)
